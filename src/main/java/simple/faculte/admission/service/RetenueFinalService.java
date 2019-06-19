@@ -10,14 +10,12 @@ import simple.faculte.admission.bean.RetenueEcrit;
 
 /**
  *
- * @author Anas
+ * @author Ragnarok
  */
-public interface RetenueOralService {
+public interface RetenueFinalService {
 
-    public List<RetenueEcrit> findListeRetenueOral(String refConcours);
+    public List<RetenueEcrit> findListeRetenueFinal(String refConcours);
+    public List<RetenueEcrit> findListeRetenueFinalInBd(String refConcours);
 
-    public int saveRetenueOral(List<RetenueEcrit> retenueEcrits);
-
-    public List<RetenueEcrit> listeRetenueInBd(String refConcours);
-
+    public int saveRetenueFinal(List<RetenueEcrit> retenueEcrits);
 }

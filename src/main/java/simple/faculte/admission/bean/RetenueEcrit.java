@@ -35,9 +35,9 @@ public class RetenueEcrit implements Serializable {
     private String refCandidat;
     private String refConcours;
     private Double notePreselection;
-    private boolean Preselectione;
-    private boolean RetenueOral;
-    private boolean Admis;
+    private boolean preselectione;
+    private boolean retenueOral;
+    private boolean admis;
     @OneToOne(cascade = CascadeType.REMOVE)
     private NoteConcours noteConcours;
 
@@ -68,27 +68,27 @@ public class RetenueEcrit implements Serializable {
     }
 
     public boolean isRetenueOral() {
-        return RetenueOral;
+        return retenueOral;
     }
 
-    public void setRetenueOral(boolean RetenueOral) {
-        this.RetenueOral = RetenueOral;
+    public void setRetenueOral(boolean retenueOral) {
+        this.retenueOral = retenueOral;
     }
 
     public boolean isAdmis() {
-        return Admis;
+        return admis;
     }
 
     public void setAdmis(boolean Admis) {
-        this.Admis = Admis;
+        this.admis = Admis;
     }
 
     public boolean isPreselectione() {
-        return Preselectione;
+        return preselectione;
     }
 
-    public void setPreselectione(boolean Preselectione) {
-        this.Preselectione = Preselectione;
+    public void setPreselectione(boolean preselectione) {
+        this.preselectione = preselectione;
     }
 
     public Long getId() {

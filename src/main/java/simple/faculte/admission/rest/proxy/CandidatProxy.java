@@ -16,16 +16,16 @@ import simple.faculte.admission.rest.vo.exchange.EtudiantConcoursVo;
  *
  * @author Anas
  */
-@FeignClient(name = "Inscription-api", url = "localhost:8099")
+@FeignClient(name = "zuul-server")
 public interface CandidatProxy {
 
-    @GetMapping("/inscription/etudiants/")
+    @GetMapping("/Inscription-api/inscription/etudiants/")
     public List<EtudiantConcoursVo> findAll();
 
-    @GetMapping("/inscription/etudiants/listePostule/refConcours/{reference}")
+    @GetMapping("/Inscription-api/inscription/etudiants/listePostule/refConcours/{reference}")
     public List<EtudiantConcoursVo> findByRefConcours(@PathVariable("reference") String reference);
 
-    @GetMapping("/inscription/etudiants/liste_etudiants/{cne}")
+    @GetMapping("/Inscription-api/inscription/etudiants/liste_etudiants/{cne}")
     public EtudiantConcoursVo findByCne(@PathVariable("cne") String cne);
  
 }

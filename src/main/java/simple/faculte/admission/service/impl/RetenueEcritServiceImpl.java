@@ -46,18 +46,17 @@ public class RetenueEcritServiceImpl implements RetenueEcritService {
         if (listE == null || listE.isEmpty()) {
             return null;
         }
-        listE.sort(
-                (etudiantConcoursVo1, etudiantConcoursVo2) -> {
-                    return (int) (new Double(etudiantConcoursVo2.getDiplomeEtudiantVo().getNote()) - new Double(etudiantConcoursVo1.getDiplomeEtudiantVo().getNote())); //To change body of generated lambdas, choose Tools | Templates.
-                });
         for (int i = 0; i < listE.size(); i++) {
             RetenueEcrit retenueEcrit = new RetenueEcrit();
             retenueEcrit.setRefCandidat(listE.get(i).getCne());
             retenueEcrit.setNotePreselection(NumberUtil.toDouble(listE.get(i).getDiplomeEtudiantVo().getNote()));
             listEtudiantRetenue.add(retenueEcrit);
         }
-        for (int i = 0; i < 5; i++) {
-            listEtudiantRetenue.get(i).setPreselectione(true);
+        int x = NumberUtil.toInt(concoursProxy.findByReference(refConcours).getNbreplaceConcoursEcrit());
+        for (int i = 0; i < x; i++) {
+            if(i<listEtudiantRetenue.size()){
+       listEtudiantRetenue.get(i).setPreselectione(true);
+            }
         }
         return listEtudiantRetenue;
     }
@@ -78,6 +77,7 @@ public class RetenueEcritServiceImpl implements RetenueEcritService {
             return -1;
         }
         for (RetenueEcrit retenueEcrit : retenueEcrits) {
+            retenueEcrit.setPreselectione(true);
             NoteConcours noteConours = new NoteConcours();
             noteConours.setNoteEcrit(0);
             noteConours.setNoteOral(0);
@@ -85,6 +85,7 @@ public class RetenueEcritServiceImpl implements RetenueEcritService {
             noteConours.setRetenueEcrit(retenueEcrit);
             noteConcoursDao.save(noteConours);
             retenueEcrit.setNoteConcours(noteConours);
+            
             retenueEcritDao.save(retenueEcrit);
             
         }
@@ -108,7 +109,7 @@ public class RetenueEcritServiceImpl implements RetenueEcritService {
 
     @Override
     public List<RetenueEcrit> findRetenusByRefConcours(String refConcours) {
-        return this.retenueEcritDao.findByRefConcours(refConcours);
+        return this.retenueEcritDao.findByRefConcoursOrderByNoteConcoursNoteEcritDesc(refConcours);
     }
 
 }

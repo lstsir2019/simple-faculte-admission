@@ -15,8 +15,17 @@ public class NoteModuleConcoursVo {
 
     private RetenueEcritVo retenueEcritVo;
     private EtudiantConcoursVo etudiantConcoursVo;
+    private String nom;
     private String refModuleConcours;
     private String note;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     public EtudiantConcoursVo getEtudiantConcoursVo() {
         return etudiantConcoursVo;

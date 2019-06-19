@@ -13,7 +13,7 @@ public class ModuleConcoursVo {
 
     private CoefModuleConcoursVo coefModuleConcoursVo;
     private Long id;
-    private String refModule;
+    private String reference;
     private ConcoursVo concoursVo;
 
     public CoefModuleConcoursVo getCoefModuleConcoursVo() {
@@ -32,12 +32,12 @@ public class ModuleConcoursVo {
         this.id = id;
     }
 
-    public String getRefModule() {
-        return refModule;
+    public String getReference() {
+        return reference;
     }
 
-    public void setRefModule(String refModule) {
-        this.refModule = refModule;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
     public ConcoursVo getConcoursVo() {

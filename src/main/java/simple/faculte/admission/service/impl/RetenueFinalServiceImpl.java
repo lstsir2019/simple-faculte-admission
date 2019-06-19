@@ -6,45 +6,42 @@
 package simple.faculte.admission.service.impl;
 
 import com.anas.Inscription.common.util.NumberUtil;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import simple.faculte.admission.bean.RetenueEcrit;
 import simple.faculte.admission.dao.RetenueEcritDao;
 import simple.faculte.admission.rest.proxy.ConcoursProxy;
-import simple.faculte.admission.rest.vo.exchange.EtudiantConcoursVo;
 import simple.faculte.admission.service.RetenueEcritService;
-import simple.faculte.admission.service.RetenueOralService;
+import simple.faculte.admission.service.RetenueFinalService;
 
 /**
  *
- * @author Anas
+ * @author Ragnarok
  */
 @Service
-public class RetenueOralServiceImpl implements RetenueOralService {
+public class RetenueFinalServiceImpl implements RetenueFinalService {
 
     @Autowired
-    private RetenueEcritService retenueEcritService;
-    @Autowired
     private RetenueEcritDao retenueEcritDao;
+    @Autowired
+    private RetenueEcritService retenueEcritService;
     @Autowired
     private ConcoursProxy concoursProxy;
 
     @Override
-    public List<RetenueEcrit> findListeRetenueOral(String refConcours) {
-
-        List<RetenueEcrit> listE = retenueEcritService.findRetenusByRefConcours(refConcours);
+    public List<RetenueEcrit> findListeRetenueFinal(String refConcours) {
+        List<RetenueEcrit> listE = retenueEcritDao.findByRefConcoursAndRetenueOralOrderByNoteConcoursNoteOralDesc(refConcours, true);
         if (listE == null || listE.isEmpty()) {
             return null;
         }
-        int x = NumberUtil.toInt(concoursProxy.findByReference(refConcours).getNbreplaceConcoursOral());
+        int x = NumberUtil.toInt(concoursProxy.findByReference(refConcours).getNbreplace());
 
         for (int i = 0; i < x; i++) {
             if (i < listE.size()) {
                 listE.get(i).setPreselectione(true);
                 listE.get(i).setRetenueOral(true);
+                listE.get(i).setAdmis(true);
             }
 
         }
@@ -52,13 +49,13 @@ public class RetenueOralServiceImpl implements RetenueOralService {
     }
 
     @Override
-    public int saveRetenueOral(List<RetenueEcrit> retenueEcrits) {
+    public int saveRetenueFinal(List<RetenueEcrit> retenueEcrits) {
         if (retenueEcrits.isEmpty() || retenueEcrits == null) {
             return -1;
         } else {
             for (RetenueEcrit retenueEcrit : retenueEcrits) {
                 RetenueEcrit r = retenueEcritService.findByRefCandidat(retenueEcrit.getRefCandidat());
-                r.setRetenueOral(true);
+                r.setAdmis(true);
                 retenueEcritDao.save(r);
             }
             return 1;
@@ -66,8 +63,8 @@ public class RetenueOralServiceImpl implements RetenueOralService {
     }
 
     @Override
-    public List<RetenueEcrit> listeRetenueInBd(String refConcours) {
-        return retenueEcritDao.findByRefConcoursAndRetenueOralOrderByNoteConcoursNoteOralDesc(refConcours, true);
+    public List<RetenueEcrit> findListeRetenueFinalInBd(String refConcours) {
+        return retenueEcritDao.findByRefConcoursAndAdmis(refConcours, true);
     }
 
 }

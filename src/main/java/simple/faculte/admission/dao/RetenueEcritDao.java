@@ -18,5 +18,10 @@ import simple.faculte.admission.bean.RetenueEcrit;
 public interface RetenueEcritDao extends JpaRepository<RetenueEcrit, Long> {
 
     public RetenueEcrit findByRefCandidat(String refCandidat);
-    public List<RetenueEcrit> findByRefConcours(String refConcours);
+
+    public List<RetenueEcrit> findByRefConcoursOrderByNoteConcoursNoteEcritDesc(String refConcours);
+
+    public List<RetenueEcrit> findByRefConcoursAndRetenueOralOrderByNoteConcoursNoteOralDesc(String refConcours, boolean retenueOral);
+    public List<RetenueEcrit> findByRefConcoursAndAdmis(String refConcours, boolean retenueOral);
+
 }

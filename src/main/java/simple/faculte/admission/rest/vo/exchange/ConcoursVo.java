@@ -5,7 +5,6 @@
  */
 package simple.faculte.admission.rest.vo.exchange;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,10 +15,14 @@ public class ConcoursVo {
 
     private Long id;
     private String reference;
-    private String dateConcours;
-    private String nbreetudiant;
+    private String anneeConcours;
+    private String nbreplace;
     private List<ModuleConcoursVo> moduleConcoursVo;
     private String refFiliere;
+    private String dateConcoursEcrit;
+    private String dateConcoursOral;
+    private String nbreplaceConcoursEcrit;
+    private String nbreplaceConcoursOral;
 
     public Long getId() {
         return id;
@@ -37,20 +40,36 @@ public class ConcoursVo {
         this.reference = reference;
     }
 
-    public String getDateConcours() {
-        return dateConcours;
+    public String getAnneeConcours() {
+        return anneeConcours;
     }
 
-    public void setDateConcours(String dateConcours) {
-        this.dateConcours = dateConcours;
+    public void setAnneeConcours(String anneeConcours) {
+        this.anneeConcours = anneeConcours;
     }
 
-    public String getNbreetudiant() {
-        return nbreetudiant;
+    public String getNbreplace() {
+        return nbreplace;
     }
 
-    public void setNbreetudiant(String nbreetudiant) {
-        this.nbreetudiant = nbreetudiant;
+    public void setNbreplace(String nbreplace) {
+        this.nbreplace = nbreplace;
+    }
+
+    public String getDateConcoursEcrit() {
+        return dateConcoursEcrit;
+    }
+
+    public void setDateConcoursEcrit(String dateConcoursEcrit) {
+        this.dateConcoursEcrit = dateConcoursEcrit;
+    }
+
+    public String getDateConcoursOral() {
+        return dateConcoursOral;
+    }
+
+    public void setDateConcoursOral(String dateConcoursOral) {
+        this.dateConcoursOral = dateConcoursOral;
     }
 
     public List<ModuleConcoursVo> getModuleConcoursVo() {
@@ -67,6 +86,22 @@ public class ConcoursVo {
 
     public void setRefFiliere(String refFiliere) {
         this.refFiliere = refFiliere;
+    }
+
+    public String getNbreplaceConcoursEcrit() {
+        return nbreplaceConcoursEcrit;
+    }
+
+    public void setNbreplaceConcoursEcrit(String nbreplaceConcoursEcrit) {
+        this.nbreplaceConcoursEcrit = nbreplaceConcoursEcrit;
+    }
+
+    public String getNbreplaceConcoursOral() {
+        return nbreplaceConcoursOral;
+    }
+
+    public void setNbreplaceConcoursOral(String nbreplaceConcoursOral) {
+        this.nbreplaceConcoursOral = nbreplaceConcoursOral;
     }
 
 }

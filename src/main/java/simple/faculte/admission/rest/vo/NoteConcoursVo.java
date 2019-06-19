@@ -5,6 +5,8 @@
  */
 package simple.faculte.admission.rest.vo;
 
+import simple.faculte.admission.rest.vo.exchange.EtudiantConcoursVo;
+
 /**
  *
  * @author Anas
@@ -14,6 +16,24 @@ public class NoteConcoursVo {
     private String noteEcrit;
     private String noteOral;
     private RetenueEcritVo retenueEcritVo;
+    private EtudiantConcoursVo etudiantConcoursVo;
+    private String nom;
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public EtudiantConcoursVo getEtudiantConcoursVo() {
+        return etudiantConcoursVo;
+    }
+
+    public void setEtudiantConcoursVo(EtudiantConcoursVo etudiantConcoursVo) {
+        this.etudiantConcoursVo = etudiantConcoursVo;
+    }
 
     public String getNoteEcrit() {
         return noteEcrit;
@@ -38,5 +58,5 @@ public class NoteConcoursVo {
     public void setRetenueEcritVo(RetenueEcritVo retenueEcritVo) {
         this.retenueEcritVo = retenueEcritVo;
     }
-    
+
 }

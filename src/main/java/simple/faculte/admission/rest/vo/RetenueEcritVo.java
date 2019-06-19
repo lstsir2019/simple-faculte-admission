@@ -16,9 +16,9 @@ public class RetenueEcritVo {
     private String refCandidat;
     private String refConcours;
     private String notePreselection;
-    private boolean Preselectione;
-    private boolean RetenueOral;
-    private boolean Admis;
+    private boolean preselectione;
+    private boolean retenueOral;
+    private boolean admis;
     private EtudiantConcoursVo etudiantConcoursVo;
     private NoteConcoursVo noteConcoursVo;
 
@@ -56,28 +56,30 @@ public class RetenueEcritVo {
     }
 
     public boolean isPreselectione() {
-        return Preselectione;
+        return preselectione;
     }
 
-    public void setPreselectione(boolean Preselectione) {
-        this.Preselectione = Preselectione;
+    public void setPreselectione(boolean preselectione) {
+        this.preselectione = preselectione;
     }
 
     public boolean isRetenueOral() {
-        return RetenueOral;
+        return retenueOral;
     }
 
-    public void setRetenueOral(boolean RetenueOral) {
-        this.RetenueOral = RetenueOral;
+    public void setRetenueOral(boolean retenueOral) {
+        this.retenueOral = retenueOral;
     }
 
     public boolean isAdmis() {
-        return Admis;
+        return admis;
     }
 
-    public void setAdmis(boolean Admis) {
-        this.Admis = Admis;
+    public void setAdmis(boolean admis) {
+        this.admis = admis;
     }
+
+
 
     public EtudiantConcoursVo getEtudiantConcoursVo() {
         return etudiantConcoursVo;

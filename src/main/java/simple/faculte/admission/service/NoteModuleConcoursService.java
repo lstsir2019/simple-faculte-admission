@@ -8,7 +8,9 @@ package simple.faculte.admission.service;
 import java.io.File;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
+import simple.faculte.admission.bean.NoteConcours;
 import simple.faculte.admission.bean.NoteModuleConcours;
+import simple.faculte.admission.rest.vo.NoteConcoursVo;
 import simple.faculte.admission.rest.vo.NoteModuleConcoursVo;
 import simple.faculte.admission.rest.vo.exchange.NotesSemestreVo;
 
@@ -25,6 +27,12 @@ public interface NoteModuleConcoursService {
     public File GenerateFileFromMultipath(MultipartFile file);
 
     public int saveNoteModuleConcoursFromExcel(List<NoteModuleConcours> noteModuleConcourss);
+
+    public int saveNoteConcoursOralFromExcel(List<NoteConcours> noteConcourss);
+
+    public List<NoteConcours> findNotesConcours(String refConcours);
+
+    public List<NoteConcoursVo> uploadNotesOralFromExel(MultipartFile file);
 
     public boolean validateNote(NoteModuleConcours noteModuleConcours);
 

@@ -32,6 +32,7 @@ public class NoteConcoursConverter extends AbstractConverter<NoteConcours, NoteC
             item.setNoteOral(NumberUtil.toDouble(vo.getNoteOral()));
             if (retenueEcrit) {
                 item.setRetenueEcrit(retenueEcritConverter.toItem(vo.getRetenueEcritVo()));
+
             }
 
             return item;

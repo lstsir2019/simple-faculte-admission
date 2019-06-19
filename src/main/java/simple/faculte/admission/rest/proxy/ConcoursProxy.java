@@ -16,19 +16,19 @@ import simple.faculte.admission.rest.vo.exchange.ModuleConcoursVo;
  *
  * @author Anas
  */
-@FeignClient(name = "microservice-concours-api", url = "localhost:8090")
+@FeignClient(name = "zuul-server")
 public interface ConcoursProxy {
 
-    @GetMapping("concours-api/concours/reference/{reference}")
+    @GetMapping("/microservice-concours-api/concours-api/concours/reference/{reference}")
     public ConcoursVo findByReference(@PathVariable("reference") String reference);
 
-    @GetMapping("concours-api/concours/total_coef/{refConcours}")
+    @GetMapping("/microservice-concours-api/concours-api/concours/total_coef/{refConcours}")
     public double totalCoef(@PathVariable("refConcours") String refConcours);
 
-    @GetMapping("concours-api/concours/reference/{refConcours}/module-concours/reference/{refModule}")
+    @GetMapping("/microservice-concours-api/concours-api/concours/reference/{refConcours}/module-concours/reference/{refModule}")
     public ModuleConcoursVo findByReferenceAndConcoursReference(@PathVariable("refModule") String refModule, @PathVariable("refConcours") String refConcours);
 
- @GetMapping("concours-api/concours/module-concours/{id}")
+ @GetMapping("/microservice-concours-api/concours-api/concours/module-concours/{id}")
     public ModuleConcoursVo findById(@PathVariable("id") Long id);
 
 }

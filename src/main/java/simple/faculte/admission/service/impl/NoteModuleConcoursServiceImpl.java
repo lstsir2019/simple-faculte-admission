@@ -8,9 +8,14 @@ package simple.faculte.admission.service.impl;
 import com.anas.Inscription.common.util.JexcelColumn;
 import com.anas.Inscription.common.util.JexcelUtil;
 import com.anas.Inscription.common.util.NumberUtil;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.jayway.jsonpath.JsonPath;
+import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,14 +24,18 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import simple.faculte.admission.bean.NoteConcours;
 import simple.faculte.admission.bean.NoteModuleConcours;
 import simple.faculte.admission.bean.RetenueEcrit;
+import simple.faculte.admission.dao.NoteConcoursDao;
 import simple.faculte.admission.dao.NoteModuleConcoursDao;
 import simple.faculte.admission.dao.RetenueEcritDao;
 import simple.faculte.admission.rest.converter.NoteModuleConcoursConverter;
 import simple.faculte.admission.rest.proxy.CandidatProxy;
 import simple.faculte.admission.rest.proxy.ConcoursProxy;
+import simple.faculte.admission.rest.vo.NoteConcoursVo;
 import simple.faculte.admission.rest.vo.NoteModuleConcoursVo;
+import simple.faculte.admission.rest.vo.exchange.EtudiantConcoursVo;
 import simple.faculte.admission.rest.vo.exchange.ModuleConcoursVo;
 import simple.faculte.admission.service.NoteModuleConcoursService;
 import simple.faculte.admission.service.RetenueEcritService;
@@ -50,6 +59,8 @@ public class NoteModuleConcoursServiceImpl implements NoteModuleConcoursService 
     private ConcoursProxy concoursProxy;
     @Autowired
     private RetenueEcritDao retenueEcritDao;
+    @Autowired
+    private NoteConcoursDao noteConcoursDao;
 
     @Override
     public int saveNoteModuleConcours(NoteModuleConcours noteModuleConcours) {
@@ -61,7 +72,7 @@ public class NoteModuleConcoursServiceImpl implements NoteModuleConcoursService 
     public List<NoteModuleConcoursVo> uploadNotesFromExel(MultipartFile file) {
         try {
             JexcelColumn col1 = new JexcelColumn("retenueEcritVo", "refCandidat");
-            JexcelColumn col2 = new JexcelColumn("etudiantConcoursVo", "nom");
+            JexcelColumn col2 = new JexcelColumn("nom");
             JexcelColumn col3 = new JexcelColumn("etudiantConcoursVo", "prenom");
             JexcelColumn col4 = new JexcelColumn("note");
             List<JexcelColumn> cols = new ArrayList<>();
@@ -80,6 +91,7 @@ public class NoteModuleConcoursServiceImpl implements NoteModuleConcoursService 
                 String json = jsons.get(i);
                 System.out.println(json);
                 System.out.println(jexcelUtil.fromJsonToObject(json).getEtudiantConcoursVo().getNom());
+          
                 res.add(jexcelUtil.fromJsonToObject(json));
             }
             return res;
@@ -114,14 +126,13 @@ public class NoteModuleConcoursServiceImpl implements NoteModuleConcoursService 
 
             for (NoteModuleConcours noteModuleConcours : noteModuleConcourss) {
                 if (validateNote(noteModuleConcours)) {
-                    RetenueEcrit e = retenueEcritService.findByRefCandidat(
-                            noteModuleConcours.getRetenueEcrit().getRefCandidat());
+                    RetenueEcrit e = retenueEcritService.findByRefCandidat(noteModuleConcours.getRetenueEcrit().getRefCandidat());
                     noteModuleConcours.setRetenueEcrit(e);
-                    System.out.println(e.getRefConcours());
                     ModuleConcoursVo m = concoursProxy.findById(NumberUtil.toLong(noteModuleConcours.getRefModuleConcours()));
-                    System.out.println(e.getRefConcours() + "." + noteModuleConcours.getRefModuleConcours());
                     double coef = NumberUtil.toDouble(m.getCoefModuleConcoursVo().getCoef());
                     e.getNoteConcours().setNoteEcrit((e.getNoteConcours().getNoteEcrit() + coef * noteModuleConcours.getNote()) / (concoursProxy.totalCoef(e.getRefConcours())));
+                    e.getNoteConcours().setNoteEcrit(NumberUtil.toDouble(new DecimalFormat("00.000").format(e.getNoteConcours().getNoteEcrit())));
+
                     saveNoteModuleConcours(noteModuleConcours);
                     retenueEcritDao.save(e);
                 } else {
@@ -147,6 +158,73 @@ public class NoteModuleConcoursServiceImpl implements NoteModuleConcoursService 
     @Override
     public List<NoteModuleConcours> findByRefModuleConcours(String refModuleConcours) {
         return noteModuleConcoursDao.findByRefModuleConcours(refModuleConcours);
+    }
+
+    @Override
+    public int saveNoteConcoursOralFromExcel(List<NoteConcours> noteConcourss) {
+        if (noteConcourss == null || noteConcourss.isEmpty()) {
+            return -1;
+        } else {
+            for (NoteConcours noteConcours : noteConcourss) {
+                System.out.println(noteConcours.getRetenueEcrit().getRefCandidat());
+                RetenueEcrit e = retenueEcritService.findByRefCandidat(noteConcours.getRetenueEcrit().getRefCandidat());
+
+                if (e != null && e.isAdmis()==true) {
+                    NoteConcours n = e.getNoteConcours();
+                    n.setNoteOral(noteConcours.getNoteOral());
+                    noteConcoursDao.save(n);
+                    System.out.println("hani");
+                }   
+            }
+            return 1;
+        }
+
+    }
+
+    @Override
+    public List<NoteConcoursVo> uploadNotesOralFromExel(MultipartFile file) {
+        try {
+            JexcelColumn col1 = new JexcelColumn("retenueEcritVo", "refCandidat");
+            JexcelColumn col2 = new JexcelColumn("nom");
+            JexcelColumn col3 = new JexcelColumn("etudiantConcoursVo", "prenom");
+            JexcelColumn col4 = new JexcelColumn("noteOral");
+            List<JexcelColumn> cols = new ArrayList<>();
+            cols.add(col1);
+            cols.add(col2);
+            cols.add(col3);
+
+            cols.add(col4);
+            JexcelUtil<NoteConcoursVo> jexcelUtil = new JexcelUtil<>(NoteConcoursVo.class, cols);
+
+            List<String> jsons = jexcelUtil.readAllExcelAsJson(GenerateFileFromMultipath(file).getAbsolutePath(), 0, 3, 11);
+
+            List<NoteConcoursVo> res = new ArrayList<>();
+
+            for (int i = 0; i < jsons.size(); i++) {
+                String json = jsons.get(i);
+                System.out.println(json);
+            
+                res.add(jexcelUtil.fromJsonToObject(json));
+            }
+            return res;
+        } catch (IOException ex) {
+            Logger.getLogger(NoteModuleConcours.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (BiffException ex) {
+            Logger.getLogger(NoteModuleConcours.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    public List<NoteConcours> findNotesConcours(String refConcours) {
+        List<NoteConcours> listE = noteConcoursDao.findByRetenueEcritRefConcours(refConcours);
+        List<NoteConcours> listA = new ArrayList<>();
+        for (NoteConcours noteConcours : listE) {
+            if (noteConcours.getRetenueEcrit().isRetenueOral() == true) {
+                listA.add(noteConcours);
+            }
+        }
+        return listA;
     }
 
 }

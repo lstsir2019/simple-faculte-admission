@@ -13,7 +13,6 @@ public class CoefModuleConcoursVo {
 
     private Long id;
     private String coef;
-    private ModuleConcoursVo moduleConcoursVo;
     private String refFiliere;
 
     public Long getId() {
@@ -32,14 +31,7 @@ public class CoefModuleConcoursVo {
         this.coef = coef;
     }
 
-    public ModuleConcoursVo getModuleConcoursVo() {
-        return moduleConcoursVo;
-    }
-
-    public void setModuleConcoursVo(ModuleConcoursVo moduleConcoursVo) {
-        this.moduleConcoursVo = moduleConcoursVo;
-    }
-
+   
     public String getRefFiliere() {
         return refFiliere;
     }

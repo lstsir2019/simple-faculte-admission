@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="351706ab-cf46-4037-afb0-50e52a63a14b">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="16"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="refConcours" class="java.lang.String"/>
+	<parameter name="dateConcours" class="java.lang.String"/>
+	<parameter name="filière" class="java.lang.String"/>
+	<field name="refCandidat" class="java.lang.String"/>
+	<field name="etudiantConcoursVo.nom" class="java.lang.String"/>
+	<field name="etudiantConcoursVo.prenom" class="java.lang.String"/>
+	<field name="etudiantConcoursVo.diplomeEtudiantVo.note" class="java.lang.String"/>
+	<field name="noteConcoursVo.noteEcrit" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="82" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-24" y="62" width="621" height="20" forecolor="#FFFFFF" backcolor="#333333" uuid="1c4aba86-2094-4e66-99ec-229f814c1170"/>
+			</rectangle>
+			<image>
+				<reportElement x="-12" y="-28" width="157" height="107" uuid="7daad7b2-2b9e-46bc-9e46-2349c61b0c08"/>
+				<imageExpression><![CDATA["C:\\Users\\Ragnarok\\Documents\\NetBeansProjects\\admission\\src\\main\\resources\\img\\logo.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="201" y="0" width="373" height="20" uuid="404660ad-e762-47ef-93cf-8183778fc101"/>
+				<textFieldExpression><![CDATA[$P{refConcours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="20" width="142" height="20" uuid="c334f4a3-2e16-4876-9976-1eb7d4dd4966"/>
+				<textFieldExpression><![CDATA[$P{dateConcours}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="39" width="100" height="20" uuid="fc007b80-efa4-41c5-af67-6a4413d5bf11"/>
+				<textFieldExpression><![CDATA[$P{filière}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="145" y="0" width="56" height="20" uuid="81443d45-f4d2-4961-bd59-12eb7bbebc87"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Concours :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="19" width="107" height="20" uuid="5a0113b3-63b7-40dc-bb18-680e3dc1fe34"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Année du concours :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="39" width="40" height="20" uuid="c0890e35-99e2-40cd-9d26-29e78831ae37"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Filière :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="26" y="7" width="336" height="20" uuid="a576649a-090d-40d5-9781-a86e950f3997"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liste des Candidat retenus pour passer le concours Oral :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="26" y="0" width="100" height="20" backcolor="#FF9966" uuid="0428d9a8-7966-4cb3-993a-8720b8b9cf8a"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[CNE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="226" y="0" width="100" height="20" backcolor="#FF9966" uuid="d0719355-af62-4594-be8d-4b9253ccba5d"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[PRENOM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="126" y="0" width="100" height="20" backcolor="#FF9966" uuid="2ba2bf68-e364-4042-9eb4-bed73302ecce"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NOM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="326" y="0" width="115" height="20" backcolor="#FF9966" uuid="308e1d7d-4143-4afd-8aac-dafdbcae7581"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NOTE PRESELECTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="441" y="0" width="100" height="20" backcolor="#FF9966" uuid="1534b17f-027f-4870-92ba-7fb9e843f5e9"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[NOTE ECRIT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="26" y="0" width="100" height="20" uuid="90ae9926-5a3b-4d19-96bf-a8fe6085bb64"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{refCandidat}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="126" y="0" width="100" height="20" uuid="01e09f95-70cd-4705-a9a0-d548a37f2e42"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{etudiantConcoursVo.nom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="0" width="100" height="20" uuid="3519a845-1ab9-466b-acb9-7e43cd278095"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{etudiantConcoursVo.prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="326" y="0" width="115" height="20" uuid="1407deb5-91a5-42e6-ae0f-8f7698b4ff6e"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{etudiantConcoursVo.diplomeEtudiantVo.note}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="441" y="0" width="100" height="20" uuid="08a7c800-1891-4489-a605-1d46f32a0a57"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{noteConcoursVo.noteEcrit}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="2" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="2" splitType="Stretch"/>
+	</summary>
+</jasperReport>
